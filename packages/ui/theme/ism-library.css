@@ -149,8 +149,8 @@ body {
   -webkit-tap-highlight-color: transparent;
 
   transition-property: background-color, border-color, color, box-shadow, opacity;
-  transition-duration: 200ms;
-  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  transition-duration: var(--transition-speed, 200ms);
+  transition-timing-function: var(--transition-fast, cubic-bezier(0.2, 0, 0, 1));
 }
 
 [class*='animate-'],
