@@ -51,11 +51,12 @@ export const Window: React.FC<WindowProps> = ({
     }
     rafId = requestAnimationFrame(raf);
 
-    const handleLenisScroll = (e: any) => {
-      if (e.detail?.target) {
+    const handleLenisScroll = (e: Event) => {
+      const customEvent = e as CustomEvent<{ target?: HTMLElement; offset?: number }>;
+      if (customEvent.detail?.target) {
         lenis.resize();
-        lenis.scrollTo(e.detail.target, {
-          offset: e.detail.offset || 0,
+        lenis.scrollTo(customEvent.detail.target, {
+          offset: customEvent.detail.offset || 0,
           duration: shouldReduceMotion ? 0 : 0.45,
         });
       }
@@ -103,7 +104,7 @@ export const Section: React.FC<{
         {description && <p className="text-sm text-text-muted">{description}</p>}
       </div>
     )}
-    <div className="flex flex-col overflow-hidden rounded-[var(--radius-lg)] bg-bg-surface border border-border-subtle shadow-sm">
+    <div className="flex flex-col overflow-hidden rounded-lg bg-bg-surface border border-border-subtle shadow-sm">
       {children}
     </div>
   </section>
@@ -116,14 +117,14 @@ export const Group: React.FC<{
 }> = ({ title, children, className = '' }) => (
   <div className={`flex flex-col ${title ? 'pt-5' : ''} ${className}`}>
     {title ? (
-      <div className="flex items-center w-full px-5 pt-5 pb-2">
-        <div className="flex-shrink-0 pr-4 text-[11px] font-bold uppercase tracking-widest text-text-muted">
+      <div className="flex items-center w-full px-5 pt-5 pb-2 shrink-0">
+        <div className="shrink-0 pr-4 text-[11px] font-bold uppercase tracking-widest text-text-muted">
           {title}
         </div>
-        <div className="flex-grow h-px bg-gradient-to-r from-border-strong/50 from-[85%] to-border-strong/10"></div>
+        <div className="grow h-px bg-linear-to-r from-border-strong/50 from-85% to-border-strong/10"></div>
       </div>
     ) : null}
-    <div className="flex flex-col px-5 pb-5 pt-3 gap-5">{children}</div>
+    <div className={`flex flex-col px-5 pb-5 pt-3 gap-5 ${className.includes('h-full') || className.includes('flex-1') ? 'flex-1 min-h-0' : ''}`}>{children}</div>
   </div>
 );
 
@@ -141,7 +142,7 @@ export const Stack: React.FC<{ children: React.ReactNode; className?: string }> 
 
 export const Divider: React.FC<{ className?: string }> = ({ className = '' }) => (
   <div
-    className={`h-px bg-gradient-to-r from-transparent via-border-strong/30 to-transparent my-3 w-full ${className}`}
+    className={`h-px bg-linear-to-r from-transparent via-border-strong/30 to-transparent my-3 w-full ${className}`}
   />
 );
 
@@ -173,7 +174,7 @@ export const IconButton: React.FC<{
       whileHover={shouldReduceMotion ? undefined : { scale: 1.04 }}
       whileTap={shouldReduceMotion ? undefined : { scale: 0.95 }}
       transition={uiMotion.soft}
-      className={`h-8 w-8 rounded-[var(--radius-md)] inline-flex items-center justify-center transition-colors cursor-pointer ${toneClass} ${className}`}
+      className={`h-8 w-8 rounded-md inline-flex items-center justify-center transition-colors cursor-pointer ${toneClass} ${className}`}
     >
       {children}
     </motion.button>
@@ -196,7 +197,7 @@ export const StatusPill: React.FC<{
 
   return (
     <span
-      className={`inline-flex h-6 items-center gap-1.5 rounded-[var(--radius-sm)] border px-2 text-[10px] font-bold uppercase tracking-wider ${toneClass} ${className}`}
+      className={`inline-flex h-6 items-center gap-1.5 rounded-sm border px-2 text-[10px] font-bold uppercase tracking-wider ${toneClass} ${className}`}
     >
       {dot && <span className="h-1.5 w-1.5 rounded-full bg-current" />}
       {label}
@@ -218,7 +219,7 @@ export const EmptyState: React.FC<{
     )}
     <h3 className="text-sm font-semibold text-text-primary tracking-tight">{title}</h3>
     {description && (
-      <p className="text-xs text-text-muted font-medium mt-1 max-w-[250px] mx-auto">
+      <p className="text-xs text-text-muted font-medium mt-1 max-w-62.5 mx-auto">
         {description}
       </p>
     )}

@@ -100,7 +100,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = React.memo(
     const triggerId = `ism-accordion-trigger-${reactId}`;
     const panelId = `ism-accordion-panel-${reactId}`;
     const { autoScrollAccordions } = useIsmConfig();
-    const shouldAutoScroll = autoScroll !== undefined ? autoScroll : autoScrollAccordions;
+    const shouldAutoScroll = autoScroll !== undefined ? autoScroll : (autoScrollAccordions !== false);
     const transition = shouldReduceMotion ? reducedMotionTransition : easeSmooth;
 
     React.useEffect(
@@ -132,7 +132,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = React.memo(
         ref={itemRef}
         className={[
           'flex flex-col overflow-hidden scroll-my-24',
-          'rounded-[var(--radius-lg)] border transition-all duration-200',
+          'rounded-lg border transition-all duration-200',
           isOpen
             ? 'bg-bg-surface border-border-strong shadow-subtle'
             : 'bg-bg-surface border-border-subtle hover:border-border-strong',
@@ -149,7 +149,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = React.memo(
           style={{ transform: 'none' }}
         >
           <div className="flex items-center gap-3 overflow-hidden">
-            {startContent && <div className="flex-shrink-0 text-text-muted">{startContent}</div>}
+            {startContent && <div className="shrink-0 text-text-muted">{startContent}</div>}
             <div className="flex flex-col truncate">
               <span className="text-sm font-semibold text-text-primary truncate tracking-tight">
                 {title}
@@ -163,7 +163,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = React.memo(
           <motion.div
             animate={{ rotate: isOpen ? 180 : 0 }}
             transition={transition}
-            className="flex-shrink-0 ml-3"
+            className="shrink-0 ml-3"
           >
             <ChevronDown
               size={16}
@@ -185,7 +185,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = React.memo(
           transition={transition}
           className="overflow-hidden"
         >
-          <Divider className="my-0 !border-0 bg-gradient-to-r from-transparent via-border-subtle to-transparent h-px opacity-75" />
+          <Divider className="my-0 border-0! bg-linear-to-r from-transparent via-border-subtle to-transparent h-px opacity-75" />
           <div className="flex flex-col px-5 pb-5 pt-0 text-sm text-text-secondary">
             <div className="pt-4 flex flex-col">{children}</div>
           </div>
