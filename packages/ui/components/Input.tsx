@@ -209,8 +209,10 @@ export const Textarea = memo(
 
       const displayValue = smoothTyping ? localValue : props.value;
 
+      const hasFlex1 = className.includes('flex-1');
+
       return (
-        <div className={`flex flex-col gap-1.5 ${fullWidth ? 'w-full' : 'w-auto'}`}>
+        <div className={`flex flex-col gap-1.5 ${fullWidth ? 'w-full' : 'w-auto'} ${hasFlex1 ? 'flex-1 h-full' : ''}`}>
           {label && (
             <label
               htmlFor={textareaId}
@@ -220,7 +222,7 @@ export const Textarea = memo(
             </label>
           )}
 
-          <div className={`relative flex w-full ${className}`}>
+          <div className={`relative flex w-full ${className} ${hasFlex1 ? 'h-full' : ''}`}>
             <textarea
               id={textareaId}
               ref={handleRef}

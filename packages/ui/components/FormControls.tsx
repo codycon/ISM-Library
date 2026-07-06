@@ -121,6 +121,9 @@ export const FormTextarea: React.FC<any> = ({
     };
   }, []);
 
+  // Determine if we should pass flex-1 down
+  const hasFlex1 = className.includes('flex-1');
+
   return (
     <div className={`flex flex-col w-full gap-2 ${className}`}>
       {label && <span className="text-sm font-medium text-text-primary">{label}</span>}
@@ -139,6 +142,7 @@ export const FormTextarea: React.FC<any> = ({
         fullWidth
         ref={textareaRef}
         smoothTyping={smoothTyping}
+        className={hasFlex1 ? 'flex-1' : ''}
         {...props}
       />
     </div>
