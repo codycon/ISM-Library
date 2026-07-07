@@ -99,7 +99,7 @@ export const Input = memo(
                 props.type === 'password' ? (props.autoComplete ?? 'off') : props.autoComplete
               }
               className={`
-              w-full h-10 bg-bg-surface border rounded-[var(--radius-md)]
+              w-full h-10 bg-bg-surface border rounded-md
               text-[13px] font-medium outline-none text-text-primary
               transition-colors shadow-inner placeholder:text-text-muted
               disabled:opacity-50 disabled:cursor-not-allowed
@@ -230,7 +230,7 @@ export const Textarea = memo(
               aria-invalid={isInvalid || undefined}
               aria-describedby={describedBy}
               className={`
-              w-full h-full min-h-[80px] bg-bg-surface border rounded-[var(--radius-md)]
+              w-full h-full min-h-20 bg-bg-surface border rounded-md
               text-[13px] font-medium outline-none text-text-primary
               transition-colors shadow-inner placeholder:text-text-muted p-3
               resize-none disabled:opacity-50 disabled:cursor-not-allowed
